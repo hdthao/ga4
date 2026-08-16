@@ -40,6 +40,11 @@ function monthRange(monthValue) {
 function getPresetRange(preset, selectedMonth) {
   const today = new Date()
 
+  if (preset === 'yesterday') {
+    const yesterday = addDays(today, -1)
+    return { startDate: toIsoDate(yesterday), endDate: toIsoDate(yesterday) }
+  }
+
   if (preset === 'last14') {
     return { startDate: toIsoDate(addDays(today, -13)), endDate: toIsoDate(today) }
   }
@@ -317,6 +322,7 @@ function App() {
 
         <div className="header-actions">
           <select value={preset} onChange={(event) => setPreset(event.target.value)}>
+            <option value="yesterday">Hôm qua</option>
             <option value="last7">7 ngày gần nhất</option>
             <option value="last14">14 ngày gần nhất</option>
             <option value="last28">28 ngày gần nhất</option>
